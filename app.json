@@ -1,15 +1,16 @@
 {
   "name": "Dev Tracker Reddit",
-  "description": "Highlights comments of certain users",
+  "description": "Highlights comments of certain users. Join the help server: https://discord.gg/ZVQywBg",
   "keywords": [
-    "Reddit",
+    "reddit",
     "bot",
     "dev",
-    "tracker"
+    "tracker",
+    "discord"
   ],
   "website": "https://github.com/NNTin/tracker-reddit-discord",
   "repository": "https://github.com/NNTin/tracker-reddit-discord",
-  "logo": "https://i.imgur.com/1milQUi.png",
+  "logo": "https://i.imgur.com/XYCYS9G.png",
   "env": {
     "CLIENT_ID": {
       "description": "client id of your Reddit script"
@@ -25,13 +26,18 @@
     },
     "USER_AGENT": {
       "description": "User agent of your Reddit bot. This is used to identify to the Reddit admins which user this bot belongs to.",
-      "value": "tracker-reddit-discord /u/<insert your main account username> v0.0.1"
+      "value": "tracker-reddit-discord /u/<insert your main account username> v1.0.0"
     },
     "SUBREDDITS": {
       "description": "The subreddits this bot is running on. Comma separate multiple subreddits."
     },
     "USERS": {
-      "description": "The Reddit users this bot is going to track. Comma separate multiple users."
+      "description": "The Reddit users this bot is going to track (optional, if not used KEYWORDS is required). Comma separate multiple users.",
+      "required": false
+    },
+    "KEYWORDS": {
+      "description": "The keywords this bot is going to track (optional, if not used USERS is required). Comma separate multiple keywords.",
+      "required": false
     },
     "WEBHOOK_URL": {
       "description": "Discord webhook URL"

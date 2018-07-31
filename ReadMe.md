@@ -1,6 +1,7 @@
 # tracker-reddit-discord
 
-**Work In Progress** 
+Mirrors Reddit comments to Discord.  
+You can apply a filter for certain keywords or follow users in general.
 
 ## Heroku Deployment
 
