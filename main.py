@@ -14,6 +14,7 @@ debug_mode = False
 class ProcessReason(Enum):
     tracked_user = 1
     said_keyword = 2
+    manual = 3
 
 
 class ObjectType(Enum):
@@ -36,6 +37,7 @@ def process_comment(comment, process_reason):
                  subreddit=str(comment.subreddit),
                  URL=comment.permalink,
                  object_type=ObjectType.comment,
+                 datetime_object=datetime.utcfromtimestamp(comment.created_utc),
                  process_reason=process_reason)
 
 
@@ -56,6 +58,7 @@ def process_submission(submission, process_reason):
                  subreddit=str(submission.subreddit),
                  URL=submission.permalink,
                  object_type=ObjectType.submission,
+                 datetime_object=datetime.utcfromtimestamp(submission.created_utc),
                  process_reason=process_reason)
 
 
@@ -73,7 +76,7 @@ def custom_print(title, body, author, subreddit, URL, object_type):
                                              object_type=(object_type == ObjectType.comment)))
 
 
-def webhook_send(title, body, author, subreddit, URL, object_type, process_reason):
+def webhook_send(title, body, author, subreddit, URL, object_type, datetime_object, process_reason):
     colors = [0x7f0000, 0x535900, 0x40d9ff, 0x8c7399, 0xd97b6c, 0xf2ff40, 0x8fb6bf, 0x502d59, 0x66504d,
               0x89b359, 0x00aaff, 0xd600e6, 0x401100, 0x44ff00, 0x1a2b33, 0xff00aa, 0xff8c40, 0x17330d,
               0x0066bf, 0x33001b, 0xb39886, 0xbfffd0, 0x163a59, 0x8c235b, 0x8c5e00, 0x00733d, 0x000c59,
@@ -90,10 +93,10 @@ def webhook_send(title, body, author, subreddit, URL, object_type, process_reaso
                   url="https://np.reddit.com" + URL,
                   description=truncated_body if object_type == ObjectType.comment
                   else "**{title}**\n{body}".format(title=title, body=truncated_body),
-                  timestamp=datetime.utcnow())
+                  timestamp=datetime_object)
 
-    # todo: embed.set_author could be used to provide information about process reason
-    # todo: not sure if needed, still thinking about formatting
+    # todo: embed.set_author could be used to provide information about process reason.
+    # todo: not sure if needed, need formatting ideas to make it look pretty.
 
     embed.set_footer(text="thread created on"
                      if object_type == ObjectType.submission
@@ -116,11 +119,13 @@ def webhook_send(title, body, author, subreddit, URL, object_type, process_reaso
     finally:
         print("{process_reason}: /u/{author} {action} in /r/{subreddit}: \n"
               "{URL}".format(process_reason="Keyword detected"
-                             if process_reason==ProcessReason.said_keyword
-                             else "Author detected",
+                             if process_reason == ProcessReason.said_keyword
+                             else "Author detected"
+                             if process_reason == ProcessReason.tracked_user
+                             else "Manual",
                              author=author, subreddit=subreddit,
                              action="commented in a thread"
-                             if object_type==ObjectType.comment
+                             if object_type == ObjectType.comment
                              else "created a thread",
                              URL="https://np.reddit.com" + URL))
 
@@ -139,10 +144,8 @@ if __name__ == '__main__':
 
     processed_comments = 0
     processed_submissions = 0
-    while True:  # todo: change if to while
+    while True:
         for comment in comment_stream:
-            # break  # todo: remove this
-
             if comment is None:
                 break
             else:
@@ -161,8 +164,6 @@ if __name__ == '__main__':
             if any(keyword in comment.body.lower() for keyword in config["keywords"]):
                 process_comment(comment=comment, process_reason=ProcessReason.said_keyword)
                 continue
-
-            # break  # todo: remove line
 
         for submission in submission_stream:
             if submission is None:
@@ -187,7 +188,7 @@ if __name__ == '__main__':
                 if any(keyword in submission.selftext.lower() for keyword in config["keywords"]):
                     process_submission(submission=submission, process_reason=ProcessReason.said_keyword)
                     continue
-            # break  # todo: remove line
+
         if debug_mode:
             print("processed comments: {processed_comments}, processed submissions: {processed_submissions}"
                   .format(processed_comments=processed_comments, processed_submissions=processed_submissions))

@@ -26,7 +26,7 @@
     },
     "USER_AGENT": {
       "description": "User agent of your Reddit bot. This is used to identify to the Reddit admins which user this bot belongs to.",
-      "value": "tracker-reddit-discord /u/<insert your main account username> v1.0.0"
+      "value": "tracker-reddit-discord /u/<insert your main account username> v1.0.1"
     },
     "SUBREDDITS": {
       "description": "The subreddits this bot is running on. Comma separate multiple subreddits."

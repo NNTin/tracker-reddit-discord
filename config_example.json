@@ -3,7 +3,7 @@
     "client_secret" : "client_secret",
     "username" : "username",
     "password" : "password",
-    "user_agent" : "tracker-reddit-discord v1.0.0 /u/<your reddit name>",
+    "user_agent" : "tracker-reddit-discord v1.0.1 /u/<your reddit name>",
     "subreddit" : ["yoursubreddit"],
     "users" : ["the", "devs"],
     "keywords" : ["twitter", "tweets"],
