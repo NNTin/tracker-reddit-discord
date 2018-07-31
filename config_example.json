@@ -1,0 +1,10 @@
+{
+    "client_id" : "client_id",
+    "client_secret" : "client_secret",
+    "username" : "username",
+    "password" : "password",
+    "user_agent" : "tracker-reddit-discord v0.0.1 /u/<your reddit name>",
+    "subreddit" : ["yoursubreddit"],
+    "users" : ["the", "devs"],
+    "webhook_url": "YOUR DISCORD WEBHOOK URL"
+}
