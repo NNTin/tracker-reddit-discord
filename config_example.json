@@ -1,11 +1,15 @@
 {
-    "client_id" : "client_id",
-    "client_secret" : "client_secret",
-    "username" : "username",
-    "password" : "password",
-    "user_agent" : "tracker-reddit-discord v1.0.1 /u/<your reddit name>",
-    "subreddit" : ["yoursubreddit"],
-    "users" : ["the", "devs"],
-    "keywords" : ["twitter", "tweets"],
-    "webhook_url": "YOUR DISCORD WEBHOOK URL"
+  "client_id" : "client_id",
+  "client_secret" : "client_secret",
+  "username" : "username",
+  "password" : "password",
+  "user_agent" : "tracker-reddit-discord v1.0.1 /u/<your reddit name>",
+  "instances" : [
+    {
+      "subreddits" : ["yoursubreddit"],
+      "users" : ["the", "devs"],
+      "keywords" : ["twitter", "tweets"],
+      "webhook_url": "YOUR DISCORD WEBHOOK URL"
+    }
+  ]
 }
