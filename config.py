@@ -13,7 +13,7 @@ else:
         "password": os.environ["PASSWORD"],
         "user_agent": os.environ["USER_AGENT"],
         "subreddit": os.environ["SUBREDDITS"].replace(" ", "").split(","),
-        "users": os.environ.get("USERS", []).lower().replace(" ", "").split(","),  # optional
-        "keywords": os.environ.get("KEYWORDS", []).lower().replace(" ", "").split(","),  # optional
+        "users": os.environ.get("USERS", "").lower().replace(" ", "").split(","),  # optional
+        "keywords": os.environ.get("KEYWORDS", "").lower().replace(" ", "").split(","),  # optional
         "webhook_url": os.environ["WEBHOOK_URL"]
     }
